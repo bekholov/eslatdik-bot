@@ -17,7 +17,11 @@ from telegram.ext import (
 )
 
 # ================== SOZLAMALAR ==================
-TOKEN = "8440037936:AAG7RO6xGngnwBpf9qpUtQlfMvA7EJAwX8k"
+TOKEN = os.getenv("BOT_TOKEN")
+
+if not TOKEN:
+    raise RuntimeError("BOT_TOKEN not set")
+
 CHANNEL_USERNAME = "@bir_iqtibos"
 ADMIN_ID = 6520710677
 ADMIN_GROUP_ID = -1003566340125
@@ -279,3 +283,17 @@ app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, text_handler))
 
 print("Bot ishga tushdi...")
 app.run_polling()
+
+def main():
+    app = ApplicationBuilder().token(TOKEN).build()
+
+    # BU YERDA SENING BOR HANDLERLARING QOLADI
+    # masalan:
+    # app.add_handler(CommandHandler("start", start))
+    # app.add_handler(CallbackQueryHandler(button_handler))
+
+    print("Bot ishga tushdi...")
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
